@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuoteFlow — Instant Quotes for Solo Trades</title>
+<style>
+  :root { --bg:#0f1419; --card:#1a2332; --accent:#22d3ee; --text:#e2e8f0; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+  header { text-align:center; padding:60px 20px 40px; }
+  h1 { font-size:2.4rem; margin:0 0 8px; background:linear-gradient(90deg,#22d3ee,#a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .tag { opacity:.75; font-size:1.1rem; }
+  .price { font-size:2rem; color:var(--accent); font-weight:700; margin:12px 0; }
+  .cta { display:inline-block; background:var(--accent); color:#0f1419; padding:14px 28px; border-radius:10px; text-decoration:none; font-weight:700; margin:10px; }
+  .section { max-width:900px; margin:0 auto; padding:20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:30px 0; }
+  .card { background:var(--card); padding:20px; border-radius:12px; border:1px solid #2a3a4a; }
+  form { background:var(--card); padding:24px; border-radius:12px; max-width:520px; margin:30px auto; }
+  label { display:block; margin:12px 0 4px; font-size:.9rem; }
+  input, textarea, select { width:100%; padding:10px; border-radius:8px; border:1px solid #3a4a5a; background:#0f1419; color:var(--text); }
+  button { background:var(--accent); color:#0f1419; border:none; padding:12px 20px; border-radius:8px; font-weight:700; cursor:pointer; width:100%; margin-top:16px; }
+  #result { display:none; background:#0a1a20; padding:16px; border-radius:8px; margin-top:16px; white-space:pre-wrap; font-family:monospace; }
+  footer { text-align:center; padding:40px 20px; opacity:.5; font-size:.85rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>QuoteFlow</h1>
+  <p class="tag">Instant professional quotes for solo trades.<br>Voice or form → branded PDF in seconds.</p>
+  <div class="price">$19 / month</div>
+  <a class="cta" href="#try">Try the tool free</a>
+  <a class="cta" href="https://buy.stripe.com/test_placeholder" style="background:#a855f7;color:white;">Get QuoteFlow</a>
+</header>
+
+<div class="section">
+  <div class="grid">
+    <div class="card"><strong>First responder wins</strong><br>Most trades lose jobs because they respond too slow or never follow up. QuoteFlow fixes both.</div>
+    <div class="card"><strong>Under $20</strong><br>Jobber’s follow-up starts at $99+. We give you the gap for $19 flat.</div>
+    <div class="card"><strong>Auto chase</strong><br>Send the quote + one link to accept and pay deposit. We chase until they reply.</div>
+  </div>
+</div>
+
+<div class="section" id="try">
+  <h2 style="text-align:center;">Generate a quote right now</h2>
+  <form id="quoteForm">
+    <label>Your business name</label>
+    <input name="biz" placeholder="Mike’s Plumbing" required>
+    <label>Customer name</label>
+    <input name="customer" placeholder="Sarah Johnson" required>
+    <label>Job description</label>
+    <textarea name="job" rows="3" placeholder="Replace water heater, 50 gallon" required></textarea>
+    <label>Labor ($)</label>
+    <input name="labor" type="number" step="0.01" placeholder="450" required>
+    <label>Materials ($)</label>
+    <input name="materials" type="number" step="0.01" placeholder="320" required>
+    <button type="submit">Create Quote</button>
+  </form>
+  <div id="result"></div>
+</div>
+
+<footer>
+  QuoteFlow · Built for solo plumbers, electricians & HVAC<br>
+  Spend so far: $0 · Domain + Stripe still free to add later
+</footer>
+
+<script>
+document.getElementById('quoteForm').onsubmit = e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target));
+  const total = (parseFloat(d.labor)||0) + (parseFloat(d.materials)||0);
+  const quote = `
+QUOTE — ${d.biz}
+Customer: ${d.customer}
+Job: ${d.job}
+
+Labor: $${d.labor}
+Materials: $${d.materials}
+TOTAL: $${total.toFixed(2)}
+
+Accept & pay deposit: [link will go here]
+Valid for 7 days.
+  `.trim();
+  const el = document.getElementById('result');
+  el.style.display = 'block';
+  el.textContent = quote;
+  setTimeout(() => window.print(), 300);
+};
+</script>
+</body>
+</html>
