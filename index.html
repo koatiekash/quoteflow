@@ -104,13 +104,12 @@ Materials: $${d.materials}
 TOTAL: $${total.toFixed(2)}
 Deposit due: $${deposit}
 
-Accept & pay deposit: https://buy.stripe.com/5kQcN5aIQ1RCbCCfmmes000
 Valid for 7 days.
   `.trim();
 
   const followup = `
-AUTO FOLLOW-UP SEQUENCE CREATED
-Day 1: Quote sent to ${d.email}
+FOLLOW-UP SEQUENCE PREVIEW — NOT SENT
+Day 1: Quote would be sent to ${d.email}
 Day 3: "Still interested? Here's the link again"
 Day 5: "Quick reminder — deposit holds your spot"
 Day 7: Final follow-up
