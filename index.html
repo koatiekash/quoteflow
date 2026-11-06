@@ -22,9 +22,15 @@
   button { background:var(--accent); color:#0f1419; border:none; padding:12px 20px; border-radius:8px; font-weight:700; cursor:pointer; width:100%; margin-top:16px; }
   #result { display:none; background:#0a1a20; padding:16px; border-radius:8px; margin-top:16px; white-space:pre-wrap; font-family:monospace; }
   footer { text-align:center; padding:40px 20px; opacity:.5; font-size:.85rem; }
+  nav { text-align:center; padding:10px; }
+  nav a { color:var(--accent); margin:0 12px; text-decoration:none; }
 </style>
 </head>
 <body>
+<nav>
+  <a href="#try">Try it</a>
+  <a href="#contact">Contact</a>
+</nav>
 <header>
   <h1>QuoteFlow</h1>
   <p class="tag">Instant professional quotes for solo trades.<br>Voice or form → branded PDF in seconds.</p>
@@ -59,6 +65,20 @@
   <div id="result"></div>
 </div>
 
+<div class="section" id="contact">
+  <h2 style="text-align:center;">Business inquiries</h2>
+  <form id="contactForm">
+    <label>Name</label>
+    <input name="name" required>
+    <label>Email</label>
+    <input name="email" type="email" required>
+    <label>Message</label>
+    <textarea name="message" rows="4" placeholder="Partnership, bulk pricing, or questions..." required></textarea>
+    <button type="submit">Send inquiry</button>
+  </form>
+  <div id="contactResult" style="display:none; text-align:center; margin-top:12px; color:#22d3ee;"></div>
+</div>
+
 <footer>
   QuoteFlow · Built for solo plumbers, electricians & HVAC<br>
   Spend so far: $0 · Domain + Stripe still free to add later
@@ -85,6 +105,15 @@ Valid for 7 days.
   el.style.display = 'block';
   el.textContent = quote;
   setTimeout(() => window.print(), 300);
+};
+
+document.getElementById('contactForm').onsubmit = e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target));
+  const el = document.getElementById('contactResult');
+  el.style.display = 'block';
+  el.textContent = `Thanks ${d.name}. We’ll reply to ${d.email} shortly.`;
+  e.target.reset();
 };
 </script>
 </body>
