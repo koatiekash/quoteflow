@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QuoteFlow — Instant Quotes + Auto Follow-up</title>
+<meta name="description" content="Free quote preview demo for solo plumbers, electricians and HVAC techs. The quote preview runs in your browser; nothing is sent from the demo. The full QuoteFlow app isn't live yet. Founding-member subscription $19/month.">
+<title>QuoteFlow — Free Quote Preview Demo (Full App Not Live Yet)</title>
 <style>
   :root { --bg:#0f1419; --card:#1a2332; --accent:#22d3ee; --text:#e2e8f0; }
   * { box-sizing: border-box; }
@@ -13,6 +14,8 @@
   .tag { opacity:.75; font-size:1.1rem; }
   .price { font-size:2rem; color:var(--accent); font-weight:700; margin:12px 0; }
   .cta { display:inline-block; background:var(--accent); color:#0f1419; padding:14px 28px; border-radius:10px; text-decoration:none; font-weight:700; margin:10px; }
+  .checkout-note { opacity:1; max-width:640px; margin:8px auto 0; font-size:.95rem; }
+  .checkout-note a { color:var(--accent); }
   .section { max-width:900px; margin:0 auto; padding:20px; }
   .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:30px 0; }
   .card { background:var(--card); padding:20px; border-radius:12px; border:1px solid #2a3a4a; }
@@ -36,36 +39,38 @@
 </nav>
 <header>
   <h1>QuoteFlow</h1>
-  <p class="tag">Instant quotes + automatic follow-up until they reply.<br>The $19 tool that stops lost jobs.</p>
-  <div class="price">$19 / month</div>
-  <a class="cta" href="#try">Try the tool free</a>
-  <a class="cta" href="https://buy.stripe.com/5kQcN5aIQ1RCbCCfmmes000" style="background:#a855f7;color:white;">Get QuoteFlow</a>
+  <p class="tag">Build a clean quote in your browser and see an example follow-up schedule.<br>Nothing is sent from this demo. The full app isn't live yet.</p>
+  <div class="price">$19 / month · founding member</div>
+  <a class="cta" href="#try">Try the free quote preview</a>
+  <a class="cta" href="https://buy.stripe.com/5kQcN5aIQ1RCbCCfmmes000" style="background:#a855f7;color:white;">Become a founding member — $19/mo</a>
+  <p class="checkout-note">Full app when it launches, at no extra cost. $19/month locked if you subscribe before launch day and stay subscribed without a break. Full refund if your request reaches us before launch day (a refund also cancels). Tax may be added. <a href="terms.html">Subscription terms</a></p>
 </header>
 
 <div class="section">
   <div class="grid">
-    <div class="card"><strong>First responder wins</strong><br>Most trades lose jobs because they respond slow or never follow up. QuoteFlow fixes both.</div>
-    <div class="card"><strong>Under $20</strong><br>Jobber’s follow-up starts at $99+. We give you the gap for $19 flat.</div>
-    <div class="card"><strong>Auto chase</strong><br>Send the quote + one link to accept and pay deposit. We chase until they reply.</div>
+    <div class="card"><strong>Slow quotes lose jobs</strong><br>Jobs slip away when quotes go out late or nobody follows up. QuoteFlow is being built to help with both.</div>
+    <div class="card"><strong>$19 a month</strong><br>One monthly plan for solo plumbers, electricians and HVAC techs. Tax may be added.</div>
+    <div class="card"><strong>Follow-up (in development)</strong><br>We're building quote sending and automatic follow-up. They aren't in this demo, and this isn't a promise of a date or of what the first full release includes.</div>
   </div>
 </div>
 
 <div class="section" id="try">
-  <h2 style="text-align:center;">Generate a quote right now</h2>
+  <h2 style="text-align:center;">Try the quote preview</h2>
+  <p style="text-align:center;">Preview only. Everything stays in your browser — nothing is sent to you or your customer.</p>
   <form id="quoteForm">
-    <label>Your business name</label>
-    <input name="biz" placeholder="Mike’s Plumbing" required>
-    <label>Customer name</label>
-    <input name="customer" placeholder="Sarah Johnson" required>
-    <label>Customer email</label>
-    <input name="email" type="email" placeholder="sarah@email.com" required>
-    <label>Job description</label>
-    <textarea name="job" rows="3" placeholder="Replace water heater, 50 gallon" required></textarea>
-    <label>Labor ($)</label>
-    <input name="labor" type="number" step="0.01" placeholder="450" required>
-    <label>Materials ($)</label>
-    <input name="materials" type="number" step="0.01" placeholder="320" required>
-    <button type="submit">Create Quote + Follow-up Sequence</button>
+    <label for="biz">Your business name</label>
+    <input id="biz" name="biz" placeholder="Mike’s Plumbing" required>
+    <label for="customer">Customer name</label>
+    <input id="customer" name="customer" placeholder="Sarah Johnson" required>
+    <label for="email">Customer email (shown on the preview only — not emailed)</label>
+    <input id="email" name="email" type="email" placeholder="sarah@email.com" required>
+    <label for="job">Job description</label>
+    <textarea id="job" name="job" rows="3" placeholder="Replace water heater, 50 gallon" required></textarea>
+    <label for="labor">Labor ($)</label>
+    <input id="labor" name="labor" type="number" step="0.01" placeholder="450" required>
+    <label for="materials">Materials ($)</label>
+    <input id="materials" name="materials" type="number" step="0.01" placeholder="320" required>
+    <button type="submit">Build Quote Preview</button>
   </form>
   <div id="result"></div>
 </div>
@@ -74,13 +79,13 @@
   <h2 style="text-align:center;">Business inquiries</h2>
   <p class="contact-email">Email us directly: <a href="mailto:quoteflowfl@gmail.com">quoteflowfl@gmail.com</a></p>
   <form id="contactForm">
-    <label>Name</label>
-    <input name="name" required>
-    <label>Email</label>
-    <input name="email" type="email" required>
-    <label>Message</label>
-    <textarea name="message" rows="4" placeholder="Partnership, bulk pricing, or questions..." required></textarea>
-    <button type="submit">Send inquiry</button>
+    <label for="contact-name">Name</label>
+    <input id="contact-name" name="name" required>
+    <label for="contact-email">Email</label>
+    <input id="contact-email" name="email" type="email" required>
+    <label for="contact-message">Message</label>
+    <textarea id="contact-message" name="message" rows="4" placeholder="Partnership, bulk pricing, or questions..." required></textarea>
+    <button type="submit">Open email to send.</button>
   </form>
   <div id="contactResult" style="display:none; text-align:center; margin-top:12px; color:#22d3ee;"></div>
 </div>
@@ -88,7 +93,7 @@
 <footer>
   QuoteFlow · Built for solo plumbers, electricians & HVAC<br>
   Contact: <a href="mailto:quoteflowfl@gmail.com" style="color:var(--accent);">quoteflowfl@gmail.com</a><br>
-  Live payments enabled · $19/month · <a href="privacy.html" style="color:var(--accent);">Privacy</a> · <a href="terms.html" style="color:var(--accent);">Terms</a>
+  Demo only · Full app not live yet · Founding membership $19/month · <a href="privacy.html" style="color:var(--accent);">Privacy</a> · <a href="terms.html" style="color:var(--accent);">Terms</a>
 </footer>
 
 <script>
@@ -96,7 +101,6 @@ document.getElementById('quoteForm').onsubmit = e => {
   e.preventDefault();
   const d = Object.fromEntries(new FormData(e.target));
   const total = (parseFloat(d.labor)||0) + (parseFloat(d.materials)||0);
-  const deposit = (total * 0.3).toFixed(2);
   const quote = `
 QUOTE — ${d.biz}
 Customer: ${d.customer}
@@ -106,23 +110,22 @@ Job: ${d.job}
 Labor: $${d.labor}
 Materials: $${d.materials}
 TOTAL: $${total.toFixed(2)}
-Deposit due: $${deposit}
 
-Valid for 7 days.
+Valid for 7 days (sample — edit for your business)
   `.trim();
 
   const followup = `
-FOLLOW-UP SEQUENCE PREVIEW — NOT SENT
-Day 1: Quote would be sent to ${d.email}
-Day 3: "Still interested? Here's the link again"
-Day 5: "Quick reminder — deposit holds your spot"
+EXAMPLE FOLLOW-UP SCHEDULE — NOT SENT. Sample only; QuoteFlow doesn't send follow-ups today.
+Day 1: Example: quote to ${d.email}
+Day 3: "Still interested? Just reply to this message."
+Day 5: "Quick reminder — reply anytime with questions"
 Day 7: Final follow-up
   `.trim();
 
   const el = document.getElementById('result');
   el.style.display = 'block';
-  el.innerHTML = `<pre>${quote}</pre><div class="followup">${followup}</div>`;
-  setTimeout(() => window.print(), 400);
+  el.innerHTML = `<pre>${quote}</pre><div class="followup">${followup}</div><button type="button" id="printQuote">Print quote</button>`;
+  document.getElementById('printQuote').onclick = () => window.print();
 };
 
 document.getElementById('contactForm').onsubmit = e => {
